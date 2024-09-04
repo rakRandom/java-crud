@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 06-Jul-2018 às 12:50
--- Versão do servidor: 5.7.17
--- PHP Version: 5.6.30
+-- Tempo de geração: 18-Jul-2023 às 15:13
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.0.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,11 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `clientes`
+-- Banco de dados: `clientes`
 --
-CREATE DATABASE IF NOT EXISTS `clientes` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `clientes`;
-
+create DATABASE `clientes`;
+use `clientes`;
 -- --------------------------------------------------------
 
 --
@@ -50,25 +48,46 @@ INSERT INTO `tbclientes` (`cod`, `nome`, `dt_nasc`, `telefone`, `email`) VALUES
 (5, 'Robson Lopes Dantas', '02/09/2004', '(11)5555-5555', 'robson@ld.com.br'),
 (6, 'xxxx', '02/10/1969', '(11)5252-5252', 'xxx@xxx'),
 (7, 'yyyyyy', '01/02/2021', '(11)2222-2222', 'yyy@yyy.com');
+
+-- --------------------------------------------------------
+
 --
--- Indexes for dumped tables
+-- Estrutura da tabela `tblusuario`
+--
+
+CREATE TABLE `tblusuario` (
+  `usuario` varchar(25) NOT NULL,
+  `senha` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tblusuario`
+--
+
+INSERT INTO `tblusuario` (`usuario`, `senha`) VALUES
+('A', 123),
+('B', 456);
+
+--
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `tbclientes`
+-- Índices para tabela `tbclientes`
 --
 ALTER TABLE `tbclientes`
   ADD PRIMARY KEY (`cod`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `tbclientes`
+-- AUTO_INCREMENT de tabela `tbclientes`
 --
 ALTER TABLE `tbclientes`
-  MODIFY `cod` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
+  MODIFY `cod` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

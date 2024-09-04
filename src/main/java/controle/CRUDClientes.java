@@ -16,7 +16,7 @@ import java.sql.*;
  *
  * @author Fellipe Leonardo
  */
-public class Main extends JFrame {
+public class CRUDClientes extends JFrame {
     Conexao con_cliente;
     
     JLabel rCodigo, rNome, rEmail, rTel, rData, rPesquisarTitulo, rPesquisar;
@@ -24,7 +24,7 @@ public class Main extends JFrame {
     JFormattedTextField tTel, tData;
     MaskFormatter mTel, mData;
     JButton bPrimeiro, bAnterior, bProximo, bUltimo,
-            bNovo, bGravar, bAlterar, bExcluir, bPesquisar;
+            bNovo, bGravar, bAlterar, bExcluir, bPesquisar, bSair;
     
     JTable tblClientes;
     JScrollPane scpTabela;
@@ -36,11 +36,11 @@ public class Main extends JFrame {
     };
     JComboBox cbPesquisa;
     
-    public Main() {
-        super("CRUD");
+    public CRUDClientes(Conexao conn) {
+        super("Tabela - Clientes");
         
-        con_cliente = new Conexao(); // inicialização do objeto
-        con_cliente.conectar(); // chama o método que conecta
+        // Passando a referencia da conexão já feita para um novo objeto
+        con_cliente = conn;
 
         Container tela = getContentPane();
         setLayout(null);
@@ -69,6 +69,7 @@ public class Main extends JFrame {
         bAlterar   = new JButton("Alterar");
         bExcluir   = new JButton("Excluir");
         bPesquisar = new JButton("Pesquisar");
+        bSair      = new JButton("Sair");
         
         cbPesquisa = new JComboBox(opcoesPesquisaLista);
         
@@ -84,32 +85,33 @@ public class Main extends JFrame {
         rPesquisarTitulo.setFont(new Font("", Font.BOLD, 14));
         
         // Set Bounds
-        rCodigo         .setBounds(30, 20 , 100, 20);
-        rNome           .setBounds(30, 50 , 100, 20);
-        rEmail          .setBounds(30, 80 , 100, 20);
+        rCodigo         .setBounds(30,  20, 100, 20);
+        rNome           .setBounds(30,  50, 100, 20);
+        rEmail          .setBounds(30,  80, 100, 20);
         rTel            .setBounds(30, 110, 100, 20);
         rData           .setBounds(30, 140, 100, 20);
         rPesquisarTitulo.setBounds(30, 430, 100, 20);
         rPesquisar      .setBounds(30, 450, 100, 20);
         
-        tCodigo   .setBounds(200, 20 , 50 , 20);
-        tNome     .setBounds(200, 50 , 200, 20);
-        tEmail    .setBounds(200, 80 , 200, 20);
+        tCodigo   .setBounds(200,  20,  50, 20);
+        tNome     .setBounds(200,  50, 200, 20);
+        tEmail    .setBounds(200,  80, 200, 20);
         tTel      .setBounds(200, 110, 200, 20);
         tData     .setBounds(200, 140, 200, 20);
         tPesquisar.setBounds(220, 450, 300, 20);
         
-        bPrimeiro .setBounds(30 , 180, 100, 25);
+        bPrimeiro .setBounds( 30, 180, 100, 25);
         bAnterior .setBounds(150, 180, 100, 25);
         bProximo  .setBounds(270, 180, 100, 25);
         bUltimo   .setBounds(390, 180, 100, 25);
-        bNovo     .setBounds(550, 30 , 100, 25);
-        bGravar   .setBounds(550, 80 , 100, 25);
+        bNovo     .setBounds(550,  30, 100, 25);
+        bGravar   .setBounds(550,  80, 100, 25);
         bAlterar  .setBounds(550, 130, 100, 25);
         bExcluir  .setBounds(550, 180, 100, 25);
         bPesquisar.setBounds(550, 448, 100, 24);
+        bSair     .setBounds(550, 510, 100, 25);
         
-        cbPesquisa.setBounds(130 , 450, 90, 20);
+        cbPesquisa.setBounds(130, 450, 90, 20);
         
         // Funções dos botões
         bPrimeiro .setMnemonic(KeyEvent.VK_P);
@@ -121,6 +123,7 @@ public class Main extends JFrame {
         bAlterar  .setMnemonic(KeyEvent.VK_L);
         bExcluir  .setMnemonic(KeyEvent.VK_E);
         bPesquisar.setMnemonic(KeyEvent.VK_S);
+        bSair     .setMnemonic(KeyEvent.VK_R);
         
         bPrimeiro.addActionListener((ActionEvent e) -> {
             try {
@@ -290,6 +293,11 @@ public class Main extends JFrame {
                         "Mensagem do programa", JOptionPane.INFORMATION_MESSAGE);
             }
         });
+        bSair.addActionListener((ActionEvent e) -> {
+            dispose();
+            var login = new Login();
+            login.setVisible(true);
+        });
         
         // Add
         tela.add(rCodigo);  // Labels
@@ -314,7 +322,8 @@ public class Main extends JFrame {
         tela.add(bAlterar);
         tela.add(bExcluir);
         tela.add(bPesquisar);
-        tela.add(cbPesquisa);
+        tela.add(bSair);
+        tela.add(cbPesquisa); // ComboBox
         
         // ============
         
@@ -436,17 +445,5 @@ public class Main extends JFrame {
         tTel   .setText("");
         tEmail .setText("");
         tCodigo.requestFocus();
-    }
-    
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } 
-        catch (UnsupportedLookAndFeelException | 
-                ClassNotFoundException | 
-                InstantiationException | 
-                IllegalAccessException e) {}
-        
-        Main app = new Main();
     }
 }
